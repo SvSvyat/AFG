@@ -1,5 +1,8 @@
-import React, { Component } from "react";
-import { Dimensions ,StyleSheet, TextInput, Text, View, TouchableOpacity } from 'react-native';
+import { Dimensions, StyleSheet, TextInput, Text, View, TouchableOpacity } from 'react-native';
+
+import React, { Component }            from 'react';
+import PopUpComponent, { ButtonProps } from './PopUpComponent/PopUpBox';
+import { agreeButton }                 from './PopUpComponent/Style';
 
 /*
 *
@@ -17,8 +20,20 @@ export default class StartMenu extends Component {
         }
     }
 
+    d: ButtonProps = {  text : "qwerty", 
+                        buttonStyle: agreeButton,
+                        handler: () => {
+                            console.info("handler test");
+                        } };
+
+    private PopTest: PopUpComponent = new PopUpComponent(null, <TouchableOpacity onPress = { () => {this.onClickHandler('Header')}} style = {styles.headerButton}/>, [this.d]);
+
     onClickHandler = (viewId: String) => {
         alert('Button pressed ' + viewId);
+    }
+
+    Test() {
+        return <TouchableOpacity onPress = { () => {this.onClickHandler('Header')} } style = {styles.headerButton}/>;
     }
 
     render() {
@@ -28,15 +43,15 @@ export default class StartMenu extends Component {
                     { /* TODO: There should be logo. */ }
                     <TouchableOpacity onPress = { () => {this.onClickHandler('Header')} } style = {styles.headerButton}/>
                 </View>
-
+                
                 <View style = {styles.content}>
 
                     { /* Login panel. */ }
 
                     <View style = {styles.inputContainer}>
                         <TextInput style          = {styles.input}
-                                   placeholder           = "Username"
-                                   keyboardType          = "default"
+                                   placeholder           = 'Username'
+                                   keyboardType          = 'default'
                                    underlineColorAndroid = 'transparent'
 
                                    onChangeText = { (username) => this.setState({username}) } />
@@ -44,8 +59,8 @@ export default class StartMenu extends Component {
 
                     <View style = {styles.inputContainer}>
                         <TextInput style                 = {styles.input}
-                                   placeholder           = "Password"
-                                   keyboardType          = "default"
+                                   placeholder           = 'Password'
+                                   keyboardType          = 'default'
                                    secureTextEntry       = {true}
                                    underlineColorAndroid = 'transparent'
 
@@ -77,6 +92,7 @@ export default class StartMenu extends Component {
 }
 
 const { width, height } = Dimensions.get('window');
+
 const colorSpectrum = {
     white: '#ffffff',
     pink:  '#FBC9FF'
@@ -84,12 +100,13 @@ const colorSpectrum = {
 
 const styles = StyleSheet.create({
     content: {
-        backgroundColor: colorSpectrum.white,
+        // backgroundColor: colorSpectrum.white,
+        backgroundColor: 'black',
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center'
     },
-
+    
     input: {
         width: width / 1.5,
         height: height / 15,

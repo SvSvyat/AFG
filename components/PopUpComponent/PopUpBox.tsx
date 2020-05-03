@@ -1,27 +1,68 @@
-import React, { Component } from "react"
-import { Dimensions ,StyleSheet, TextInput, Text, View, TouchableOpacity, ViewStyle } from 'react-native';
+import React, { Component }             from 'react';
+import { Text, View, TouchableOpacity, Modal, TouchableHighlight, Button, Alert } from 'react-native';
 
-import { styles, CustomButton } from './Style'
-
+import { styles }                       from './Style';
+import CSS from 'csstype'
 /*
 *
     @brief: Pop-up component for request user answer.
 *
 */
 
-export default class PopUpComponent extends Component {
-    constructor(props: any, 
-                buttons: CustomButton[],
-                handler?: (...args: any[]) => void) 
+interface IPopUpProperties {
+    handlers:  any[];
+    container: JSX.Element;
+};
+
+export default class PopUpComponent extends Component<IPopUpProperties> {
+    constructor(props: any)
     {    
         super(props);
 
-        buttons.forEach(button => {
-            console.log(button.text);
-        });
-    }
+        this._test = props.greeting;
 
-    render() {
-        return (null);
+        this._handlers = props.handlers;
+        this._container = props.contain; 
+        // this._buttons = props.buttons;
+
+        // this._container = props.container;
+    }
+      
+    _handlers: any[];
+    // _buttons: ButtonProps[];
+    _test: String;
+    _container: JSX.Element;
+    _viusalState = { 
+        isVisible: false
+    };
+    
+    GetToucheble = () => {
+        return (
+        <View>
+            { this._handlers.map( (handler: any) => {
+                return( <TouchableOpacity onPress = { handler }>
+                            <Text>YA SOSU</Text>
+                        </TouchableOpacity>
+                ); } ) }
+        </View>)
+    };
+
+    GetContainer = () => {
+        return (
+        <View>
+            { this._container }
+        </View>)
+    };
+
+    render(): JSX.Element {
+        const { isVisible } = this._viusalState;
+  
+        return (
+            <View>
+                <this.GetContainer/>
+
+                <this.GetToucheble/>
+            </View>
+        );
     }
 }

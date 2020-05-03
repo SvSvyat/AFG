@@ -1,29 +1,22 @@
-import { StyleSheet, ViewStyle } from 'react-native';
-  
-// Decalre custom button interface.
-
-export interface CustomButton {
-    text:        string;
-    buttonStyle: any;
-}
-
-export interface CustomButtonConstructor {
-    new (text: string, button: any): CustomButton;
-}
-
-export var CustomButton: CustomButtonConstructor;
+import { Dimensions, StyleSheet, ViewStyle } from 'react-native';
 
 // Styles.
 
+const { width, height } = Dimensions.get('window');
+
 export const styles = StyleSheet.create({
-    container: {                      
-      marginTop: 150,
-      backgroundColor: '#ededed',
-      flexWrap: 'wrap'
-    }
+    popUpContainer: {
+        width: width * 0.8,
+        height: height * 0.8,
+        backgroundColor: 'pink',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flex: 999
+    },
  }); 
 
-const agreeButton = StyleSheet.create({
+export const agreeButton = StyleSheet.create({
     primary: {                        
         flex: 1,
         height: 70,
@@ -32,7 +25,7 @@ const agreeButton = StyleSheet.create({
         alignItems: 'center',
         marginLeft: 20,
         marginRight: 20
-    }
+    }, 
 });
 
 export const nayButton = StyleSheet.create({
@@ -59,4 +52,8 @@ export const okButton = StyleSheet.create({
     }
 });
 
-export {agreeButton};
+export const buttonStyle = {
+    okButton: okButton,
+    nayButton: nayButton,
+    agreeButton: agreeButton
+};
